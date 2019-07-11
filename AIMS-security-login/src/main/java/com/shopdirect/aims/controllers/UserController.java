@@ -35,12 +35,12 @@ public class UserController {
 	public ModelAndView search(@RequestParam("userId") String userId) {	
 		ModelAndView model = null;
 		try {
-			User user = userService.getUserById(userId);
+			User user = userService.getCloneById(userId);
 			model = new ModelAndView("userDetails");
 			model.addObject("user", user);
 		} catch (Exception e) {
 			e.printStackTrace();
-			model = new ModelAndView("welcome");
+			model = new ModelAndView("revokeUser");
 			model.addObject("errorMsg", "User does not exist.");			
 		}
 		return model;
@@ -63,13 +63,17 @@ public class UserController {
 				userExist = true;
 			}			
 		} catch (Exception e) {
+			//e.printStackTrace();
 		}
-		try {
-			User existingClone = userService.getUserById(user.getCloneId());
-			if(existingClone!=null) {
-				cloneExist = true;
-			}			
-		} catch (Exception e) {
+		if(!userExist) {
+			try {
+				User existingClone = userService.getCloneById(user.getCloneId());
+				if(existingClone!=null) {
+					cloneExist = true;
+				}			
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		if(userExist) {
 			model = new ModelAndView("addUser", "user", user);
@@ -79,7 +83,7 @@ public class UserController {
 			model.addObject("errorMsgClone", "Clone id doesn't exist !!!");
 		} else {
 			userService.insertUser(user);
-			model = new ModelAndView("userDetails");
+			model = new ModelAndView("addUserSuccess");
 			model.addObject("user", user);
 			model.addObject("msg", "User has been added successfully.");		
 			model.addObject("addFunction", true);
@@ -92,11 +96,16 @@ public class UserController {
 		ModelAndView model = new ModelAndView("alterUser");
 		return model;
 	}
+	@RequestMapping("/revoke")
+	public ModelAndView revokePage() {
+		return new ModelAndView("revokeUser");
+	}
 	
 	@RequestMapping(value = "/revokeUser", method = RequestMethod.GET, params="userId")
-	public ModelAndView revoke(@RequestParam("userId") String userId) {					
-		userService.revokeUser(userId);
-		User user = userService.getUserById(userId);	
+	public ModelAndView revoke(@RequestParam("userId") String userId) {	
+		User user = userService.getCloneById(userId);
+		boolean result = userService.revokeUser(userId);		
+		if(result) user.setStatus(false);		
 		ModelAndView model = new ModelAndView("userDetails");
 		model.addObject("msg", "Access has been revoked successfully.");
 		model.addObject("user", user);

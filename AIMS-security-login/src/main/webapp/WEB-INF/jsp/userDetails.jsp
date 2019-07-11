@@ -19,9 +19,34 @@
 	    <title>AIMS Access</title>
 	</head>
 	<body>
-		<jsp:include page="header.jsp" />
+		<header>
+			<!-- Header using navbar -->
+		    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-background">
+		        <img class="header_img" src="images/logo.png" alt="logo">
+		        <a class="navbar-brand" href="#">SHOP DIRECT AIMS Access</a>
+		          <!-- Menu Items -->
+		          <ul class="navbar-nav ml-auto navbar-margin">
+		            <li class="nav-item">
+		              <a class="nav-link" href="${pageContext.request.contextPath}/welcome">Home <span class="sr-only">(current)</span></a>
+		            </li>
+		            <li class="nav-item">
+		              <a class="nav-link" href="${pageContext.request.contextPath}/addNewUser">New</a>
+		            </li>
+		            <li class="nav-item">
+		              <a class="nav-link" href="/alterUser">Alter</a>
+		            </li>
+		            <li class="nav-item active">
+		              <a class="nav-link" href="/revoke">Revoke</a>
+		            </li>            
+		            <li class="nav-item">
+		              <a class="nav-link " onclick="document.forms['logoutForm'].submit()" tabindex="-1" aria-disabled="true">Logout</a>
+		            </li>
+		          </ul>
+		        <form id="logoutForm" method="POST" action="${contextPath}/logout"></form>
+		      </nav>
+		</header>
 		<section class="container-fluid body_section">
-		<h3 class="m-3" style="color: red;">User Details</h3>
+		<h3 class="m-3" style="color: #25408F;">User Details</h3>
 		<span style="color: red;">${errorMsg}</span>
 	    <span class="ml-3 pb-3 text-success">${msg}</span>		
 		<table class="table table-bordered">
@@ -29,7 +54,7 @@
 		    <tr>
 		      <th scope="col">User ID</th>
 		      <th scope="col">User Name</th>
-		      <th scope="col">Clone ID</th>
+		      <c:if test="${user.cloneId}"><th scope="col">Clone ID</th></c:if>		      
 		      <th scope="col">Access Status</th>
 		    </tr>
 		  </thead>
@@ -37,7 +62,7 @@
 			<tr>
 		      <td>${user.userId}</td>
 		      <td>${user.userName}</td>
-		      <td>${user.cloneId}</td>
+		      <c:if test="${user.cloneId}"><th scope="col"><td>${user.cloneId}</td></th></c:if>		      
 		      <td>
 		      	<c:if test="${user.status}">Y</c:if>
 		      	<c:if test="${!user.status}">N</c:if>

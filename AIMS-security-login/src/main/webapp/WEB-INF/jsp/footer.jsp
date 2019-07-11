@@ -1,7 +1,7 @@
 <footer>
   <section class="container-fluid">
     <section class="text-left">
-        <span> &copy; 2019 Shop Direct</span>
+        <span>&nbsp;</span>
     </section>
   </section>
 </footer>

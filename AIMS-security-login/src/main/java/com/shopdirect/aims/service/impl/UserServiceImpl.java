@@ -18,20 +18,16 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User getUserById(String userid) {
-		
-		//List<User> users = new ArrayList<User>();
 		User user = userDao.getUserById(userid);
 		System.out.println(user);
-		//users.add(user);
 		return user;
-//		List<User> users = new ArrayList<User>();
-//		User user = new User();
-//		user.setUserId("ibm0507");
-//		user.setUserName("Abhijit Paul");
-//		user.setCloneId("ibm0305");
-//		user.setStatus(true);
-//		users.add(user);
-//		return users;
+	}
+	
+	@Override
+	public User getCloneById(String userid) {
+		User user = userDao.getCloneById(userid);
+		System.out.println("Clone " +user);
+		return user;
 	}
 
 	@Override
@@ -47,19 +43,15 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void revokeUser(String userid) {
-		userDao.revokeUser(userid);
+	public boolean revokeUser(String userid) {
+		return userDao.revokeUser(userid);
 		
 	}
 
-	@Override
-	public List<User> getAllUser() {
-		return userDao.getAllUsers();
-	}
-
-	@Override
-	public void insertUsers(List<User> users) {
-		userDao.insertUsers(users);		
-	}
-
+	/*
+	 * @Override public List<User> getAllUser() { return userDao.getAllUsers(); }
+	 * 
+	 * @Override public void insertUsers(List<User> users) {
+	 * userDao.insertUsers(users); }
+	 */
 }

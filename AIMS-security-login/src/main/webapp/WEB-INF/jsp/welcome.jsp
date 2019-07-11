@@ -28,7 +28,7 @@
 		<jsp:include page="header.jsp" />
 		<section class="body_section">
 			<div class="container">
-				<h3 class="ml-3 mt-3" style="color: red;">Hello User</h3>
+				<h3 class="ml-3 mt-3" style="color: #25408F;">Hello User</h3>
 				<jsp:include page="searchUser.jsp" />
 			</div>
 		</section>

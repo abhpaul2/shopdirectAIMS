@@ -21,7 +21,7 @@
 	<body>
 		<jsp:include page="header.jsp" />
 		<section class="container-fluid body_section">
-		<h3 class="m-3" style="color: red;">User Details</h3>
+		<h3 class="m-3" style="color: #25408F;">User Details</h3>
 		<span style="color: red;">${errorMsg}</span>
 	    <span class="ml-3 pb-3 text-success">${msg}</span>		
 		<table class="table table-bordered">
